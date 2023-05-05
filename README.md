@@ -61,7 +61,9 @@ ________________________________
 You can update an existing [latent diffusion](https://github.com/CompVis/latent-diffusion) environment by running
 
 ```
-conda install pytorch==1.12.1 torchvision==0.13.1 -c pytorch
+conda install -c xformers xformers
+conda install -c nvidia/label/cuda-11.7.0 cuda-nvcc
+conda install pytorch==1.13.1 torchvision==0.14.1 torchaudio==0.13.1 pytorch-cuda=11.7 -c pytorch -c nvidia
 pip install transformers==4.19.2 diffusers invisible-watermark
 pip install -e .
 ``` 
