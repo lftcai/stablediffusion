@@ -185,6 +185,12 @@ def parse_args():
         default="cpu"
     )
     parser.add_argument(
+        "--device_id",
+        type=str,
+        help="GPU Device to choose, 0, 1",
+        default="0"
+    )
+    parser.add_argument(
         "--torchscript",
         action='store_true',
         help="Use TorchScript",
@@ -212,6 +218,7 @@ def put_watermark(img, wm_encoder=None):
 
 
 def main(opt):
+    os.environ["CUDA_VISIBLE_DEVICES"] = opt.device_id
     seed_everything(opt.seed)
 
     config = OmegaConf.load(f"{opt.config}")
@@ -224,6 +231,7 @@ def main(opt):
         sampler = DPMSolverSampler(model, device=device)
     else:
         sampler = DDIMSampler(model, device=device)
+
 
     os.makedirs(opt.outdir, exist_ok=True)
     outpath = opt.outdir
